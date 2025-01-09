@@ -1,0 +1,32 @@
+{
+   "students": [
+      {
+         "sno": 1,
+         "name": "sakthi",
+         "Age": "31",
+         "course": "web development",
+         "address": "tuticorin"
+      },
+      {
+         "sno": 2,
+         "name": "Anand",
+         "Age": "28",
+         "course": "python",
+         "address": "Tuticorin"
+      },
+      {
+         "sno": 3,
+         "name": "sdaf",
+         "Age": "23",
+         "course": "web development",
+         "address": "Tuticorin"
+      },
+      {
+         "sno": 4,
+         "name": "tset",
+         "Age": "23",
+         "course": "python",
+         "address": "sadf"
+      }
+   ]
+}

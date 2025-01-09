@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Manager</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container text-center my-5">
+        <h3>Student Management System</h3>
+    </div>    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 me-4">
+                <div class="card">
+
+                    <div class="card-body text-center">
+                      {%if registration_status=="success"%}
+                      <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Successful registration!</strong> 
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                      {%endif%}
+                       <h5>Register student</h5>
+                    <form action="/" method="post">
+                       <input type="text" placeholder="Enter Student name" class="form-control my-3" name="stud_name">
+                       <input type="number" min="0" max="100" placeholder="Enter Student age" class="form-control my-3" name="stud_age">
+                       <select class="form-select my-3" name="course">
+                        <option value="python">Python</option>
+                        <option value="web development">Web Development</option>
+                        <option value="Tally">Tally</option>
+                      </select>
+                      <div class="form-floating">
+                        <textarea class="form-control my-3" placeholder="Enter address" id="floatingTextarea" name="address"></textarea>
+                        <label for="floatingTextarea">Enter Address</label>
+                      </div>
+                      <input type="submit" value="Register" class="btn btn-success">
+                    </form>
+                    
+                    </div>
+                  </div>
+            </div>
+            <div class="col">
+                <table class="table table-primary table-striped">
+                   <tr>
+                    <th>Sno</th>
+                    <th>Name</th>
+                    <th>age</th>
+                    <th>Course</th>
+                    <th>Course fees</th>
+                    <th>Fees paid</th>
+                    <th>address</th>
+                    <th>action</th>
+                   </tr>
+                   {%for stud in stud_data%}
+                   <tr>
+                    <td>{{ stud.sno }}</td>
+                    <td>{{ stud.name }}</td>
+                    <td>{{ stud.Age }}</td>
+                    <td>{{ stud.course }}</td>
+                    <td>10000</td>
+                    <td>1000</td>
+                    <td>{{ stud.address }}</td>
+                    <td>
+                    
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#student{{ stud.sno }}"><i class="fa-solid fa-user-pen"></i></button>
+                        
+                        <!-- modal start -->
+                        <div class="modal fade" id="student{{ stud.sno }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="exampleModalLabel">Update Student</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- form start -->
+                                     <form action="/update/{{ stud.sno }}" method="post">
+                                        <input type="text" placeholder="Enter Student name" class="form-control my-3" name="stud_name" value="{{ stud.name }}">
+                                        <input type="number" min="0" max="100" placeholder="Enter Student age" class="form-control my-3" name="stud_age" value="{{ stud.Age }}">
+                                        <select class="form-select my-3" name="course">
+                                          {%if stud.course=="python" %}
+                                         <option value="python">Python</option>
+                                         <option value="web development">Web Development</option>
+                                         <option value="Tally">Tally</option>
+                                         {%elif stud.course=="web development"%}
+                                         <option value="python">Python</option>
+                                         <option value="web development" selected>Web Development</option>
+                                         <option value="Tally">Tally</option>
+                                         {%else%}
+                                         <option value="python">Python</option>
+                                         <option value="web development">Web Development</option>
+                                         <option value="Tally"selected>Tally</option>
+                                         {%endif%}
+                                       </select>
+                                       <div class="form-floating">
+                                         <textarea class="form-control my-3" placeholder="Enter address" id="floatingTextarea" name="address">{{stud.address}}</textarea>
+                                         <label for="floatingTextarea">Enter Address</label>
+                                       </div>
+                                  
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-primary">Update</button>
+                                    </form>
+                                    <!-- form end -->
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                         <!-- model end -->
+                        
+                        <a href="/delete/{{ stud.sno }}"  class="btn btn-outline-danger"> <i class="fa-solid fa-trash"></i> </a>
+                        <!-- <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button> -->
+                    </td>
+                   </tr>
+                   {%endfor%}
+                  </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/da0dc67d38.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
